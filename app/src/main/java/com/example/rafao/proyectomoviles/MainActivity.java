@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loginuv);
+        setContentView(R.layout.registro);
     }
 
     //Se activa al dar click sobre el textView para logear
