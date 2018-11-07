@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout
+<AbsoluteLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo2">
 
-    <ImageView
+   <!-- <ImageView
         android:layout_width="172dp"
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
@@ -15,6 +17,8 @@
         android:src="@drawable/uv"
         tools:layout_editor_absoluteX="106dp"
         tools:layout_editor_absoluteY="16dp" />
+
+
 
     <TextView
         android:layout_width="213dp"
@@ -85,6 +89,84 @@
         tools:layout_editor_absoluteX="145dp"
         tools:layout_editor_absoluteY="427dp"
          />
+ -->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_x="133dp"
+        android:layout_y="67dp"
+        app:srcCompat="@drawable/uv" />
+
+    <EditText
+        android:id="@+id/editText"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:layout_x="55dp"
+        android:layout_y="301dp"
+        android:background="#11000000"
+        android:drawableLeft="@drawable/user"
+        android:ems="10"
+        android:hint="Usuario"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="#FFFF"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/editText2"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="215dp"
+        android:layout_x="55dp"
+        android:layout_y="357dp"
+        android:background="#11000000"
+        android:drawableLeft="@drawable/lock"
+        android:ems="10"
+        android:hint="Constraseña"
+        android:inputType="textPassword"
+        android:lineSpacingExtra="8sp"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="#FFFF"
+        android:textSize="24sp" />
 
 
-</android.widget.RelativeLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="74dp"
+        android:layout_x="56dp"
+        android:layout_y="477dp"
+        app:cardBackgroundColor="#000"
+        app:cardCornerRadius="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Enviar"
+                android:textColor="#FFFF"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</AbsoluteLayout>
