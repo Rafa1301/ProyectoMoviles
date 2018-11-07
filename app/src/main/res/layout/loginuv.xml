@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo2">
+    android:background="@drawable/fondo2"
+    tools:context=".MainActivity">
 
    <!-- <ImageView
         android:layout_width="172dp"
@@ -114,7 +115,6 @@
         android:ems="10"
         android:hint="Usuario"
         android:inputType="textPersonName"
-        android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textColorHint="#FFFF"
         android:textSize="24sp" />
@@ -135,7 +135,6 @@
         android:hint="Constraseña"
         android:inputType="textPassword"
         android:lineSpacingExtra="8sp"
-        android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textColorHint="#FFFF"
         android:textSize="24sp" />
@@ -164,9 +163,11 @@
                 android:text="Enviar"
                 android:textColor="#FFFF"
                 android:textSize="25dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:clickable="true"
+                android:onClick="perform_action"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
 
-</AbsoluteLayout>
+</RelativeLayout>
