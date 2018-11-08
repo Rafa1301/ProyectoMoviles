@@ -1,74 +1,31 @@
 package com.example.rafao.proyectomoviles;
 
-import android.content.Context;
-import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
-public class CustomPagerAdapter extends PagerAdapter {
+import java.util.ArrayList;
+import java.util.List;
 
-    private Context mContext;
+public class CustomPagerAdapter extends FragmentPagerAdapter {
+    private final List<Fragment> mFragments = new ArrayList<Fragment>();
 
-    public CustomPagerAdapter(Context context) {
-        mContext = context;
+    public CustomPagerAdapter(FragmentManager manager) {
+        super(manager);
     }
 
-    @Override
-    public Object instantiateItem(ViewGroup collection, int position) {
-
-        ModelLayout fragment = ModelLayout.values()[position];
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-
-        ViewGroup layout = (ViewGroup) inflater.inflate(fragment.getLayoutId(), collection, false);
-
-        collection.addView(layout);
-
-        return layout;
-    }
-
-    @Override
-    public void destroyItem(ViewGroup collection, int position, Object view) {
-        collection.removeView((View) view);
+    public void addFragment(Fragment fragment) {
+        mFragments.add(fragment);
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return ModelLayout.values().length;
+        return mFragments.size();
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == object;
+    public Fragment getItem(int position) {
+        return mFragments.get(position);
     }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        ModelLayout customPagerEnum = ModelLayout.values()[position];
-
-        return mContext.getString(customPagerEnum.getTitleId());
-    }
-
-    public enum ModelLayout {
-
-        LOGIN(R.layout.loginuv),
-        REGISTER(R.layout.registro);
-
-        private int mTitleId;
-        private int mLayoutId;
-
-        ModelLayout(int layoutResId) {
-            mLayoutId = layoutResId;
-        }
-
-        public int getTitleId() {
-            return mTitleId;
-        }
-
-        public int getLayoutId() {
-            return mLayoutId;
-        }
-
-    }
-
 }
