@@ -15,10 +15,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
     TextView user;
     TextView pass;
     Button boton;
@@ -27,9 +31,11 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro);
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
-        //boton = findViewById(R.id.registro);
         boton.setOnClickListener(this);
+
+
 
         user = findViewById(R.id.editText3);
         pass = findViewById(R.id.editText4);
