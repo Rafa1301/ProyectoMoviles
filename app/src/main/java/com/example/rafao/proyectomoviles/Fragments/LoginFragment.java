@@ -22,16 +22,4 @@ public class LoginFragment extends Fragment{
         return inflater.inflate(R.layout.loginuv, container, false);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        btn = view.findViewById(R.id.registro);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
 }
