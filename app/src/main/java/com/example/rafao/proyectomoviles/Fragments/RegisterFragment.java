@@ -43,14 +43,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         user = view.findViewById(R.id.editText3);
         pass = view.findViewById(R.id.editText4);
 
-        usuario = this.user.getText().toString();
-        contra = this.pass.getText().toString();
+
 
         btn = view.findViewById(R.id.registro);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                usuario = user.getText().toString();
+                contra = pass.getText().toString();
                 mAuth.createUserWithEmailAndPassword(usuario,contra)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override

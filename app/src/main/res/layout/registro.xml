@@ -31,7 +31,7 @@
         android:drawableLeft="@drawable/user"
         android:ems="10"
         android:hint="Usuario"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textColorHint="#FFFF"
