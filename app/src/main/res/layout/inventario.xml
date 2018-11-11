@@ -8,16 +8,48 @@
     tools:context=".MainActivity"
     android:background="#83b3cd"
     >
-    <Button
-        android:id="@+id/btn"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Third Item From Spinner"
+        android:id="@+id/motivo"
+        android:text="Motivo"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#000"
         />
     <Spinner
         android:id="@+id/spinner1"
+        android:layout_width="200sp"
+        android:layout_height="40sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/motivo"
+        />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn"
+        android:id="@+id/dependencia"
+        android:layout_marginTop="90dp"
+        android:text="Dependencia"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#000"
         />
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="200sp"
+        android:layout_height="40sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/dependencia"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="450dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="30dp"
+
+        android:layout_below="@+id/spinner2"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>
