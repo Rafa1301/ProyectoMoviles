@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.rafao.proyectomoviles.MainActivity;
 import com.example.rafao.proyectomoviles.Models.Usuario;
 import com.example.rafao.proyectomoviles.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,21 +27,24 @@ import java.util.HashMap;
 public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private Button btn;
+    private EditText nombre;
+    private EditText apellidos;
     private EditText user;
     private EditText pass;
-    private FirebaseAuth mAuth;
+
     private String usuario;
     private String contra;
+    private String FirstName;
+    private String LastName;
+
+    private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference root;
-
-    private int Login = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.registro, container, false);
-        return view;
+        return inflater.inflate(R.layout.registro, container, false);
     }
 
     @Override
@@ -53,8 +55,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         root = database.getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        user = view.findViewById(R.id.editText3);
-        pass = view.findViewById(R.id.editText4);
+        user = view.findViewById(R.id.correo);
+        pass = view.findViewById(R.id.contra);
+        nombre = view.findViewById(R.id.nombre);
+        apellidos = view.findViewById(R.id.apellidos);
 
         btn = view.findViewById(R.id.registro);
         btn.setOnClickListener(this);
@@ -62,48 +66,44 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        usuario = user.getText().toString();
-        contra = pass.getText().toString();
-        mAuth.createUserWithEmailAndPassword(usuario,contra)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            IniciaSession();
-                            if(Login == 1){
-                                FirebaseUser user = mAuth.getCurrentUser();
-
-                                Usuario newUser = new Usuario();
-                                newUser.nombre = "Eduardo";
-                                newUser.apellidos = "Soriano";
-
-                                DatabaseReference users = root.child("Usuarios");
-
-                                HashMap<String, Object> hashMap = new HashMap<> ();
-                                hashMap.put (user.getEmail(), newUser);
-
-                                users.updateChildren (hashMap) //updateChildren envía los datos asíncronamente por lo que hay que definir los listener correspodientes
-                                        .addOnSuccessListener (v -> {
-                                            Log.i ("PKTA", "Información almacenada");
-                                        });
-                            }
-                        }else{
-                            Log.i("PKTA","Usuario No Registrado Exitosamente");
-                        }
-                    }
-                });
+        if (v.getId() == R.id.registro) {
+            RegisterUser();
+        }
     }
 
-    private void IniciaSession() {
-        mAuth.signInWithEmailAndPassword(usuario, contra)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Login = 1;
-                        } else {
-                            Login = 0;
-                        }
+    private void RegisterUser() {
+        usuario = user.getText().toString();
+        contra = pass.getText().toString();
+        FirstName = nombre.getText().toString();
+        LastName = apellidos.getText().toString();
+
+        mAuth.createUserWithEmailAndPassword(usuario, contra)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        mAuth.signInWithEmailAndPassword(usuario, contra)
+                                .addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        DatabaseReference users = root.child("Usuarios");
+
+                                        String id = users.push().getKey();
+
+                                        Usuario newUser = new Usuario();
+                                        newUser.nombre = FirstName;
+                                        newUser.apellidos = LastName;
+                                        newUser.correo = usuario;
+                                        newUser.habilitado = 0;
+
+                                        HashMap<String, Object> hashMap = new HashMap<>();
+                                        hashMap.put(id, newUser);
+
+                                        users.updateChildren(hashMap); //updateChildren envía los datos asíncronamente por lo que hay que definir los listener correspodientes
+                                        Toast.makeText(getContext(), "Registro Exitoso.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }else{
+                        Toast.makeText(getContext(), "Error al Registrarte.",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }
