@@ -1,5 +1,6 @@
 package com.example.rafao.proyectomoviles.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.rafao.proyectomoviles.MainActivity;
 import com.example.rafao.proyectomoviles.Models.Usuario;
+import com.example.rafao.proyectomoviles.PrincipalPage;
 import com.example.rafao.proyectomoviles.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -76,8 +78,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                                     Usuario userLogin = item.getValue(Usuario.class);
                                     if(userLogin.correo.equals(user)){
                                         if(userLogin.habilitado != 0){
-                                            Toast.makeText(getContext(), "Puedes Entrar",
-                                                Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(getContext(),PrincipalPage.class);
+                                            startActivity(intent);
                                         }else{
                                             Toast.makeText(getContext(), "No puedes iniciar sesion.\nContacta al administrador.",
                                                 Toast.LENGTH_SHORT).show();
