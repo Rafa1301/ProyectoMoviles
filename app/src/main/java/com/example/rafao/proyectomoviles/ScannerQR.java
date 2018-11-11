@@ -98,6 +98,7 @@ class ScannerQR extends Fragment{
                             textView.setText(qrCodes.valueAt(0).displayValue);
 
                         }
+                        
                     });
                 }
             }
