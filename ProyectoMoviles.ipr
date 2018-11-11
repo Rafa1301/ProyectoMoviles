@@ -429,25 +429,24 @@
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: com.android.support:support-media-compat-26.1.0">
+    <library name="Gradle: com.android.support:support-media-compat-28.0.0">
+      <ANNOTATIONS>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/5366c629d1c3ace39dfb75251a26e6f5/annotations.zip!/" />
+      </ANNOTATIONS>
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/fa9109c9e0e1aada5d3b0469d115352e/jars/classes.jar!/" />
-        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/fa9109c9e0e1aada5d3b0469d115352e/res" />
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/5366c629d1c3ace39dfb75251a26e6f5/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/5366c629d1c3ace39dfb75251a26e6f5/res" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-media-compat/26.1.0/774fd1164ec32514eec562953f723a1920a7fef7/support-media-compat-26.1.0-sources.jar!/" />
-      </SOURCES>
+      <SOURCES />
     </library>
-    <library name="Gradle: com.android.support:support-v4-26.1.0">
+    <library name="Gradle: com.android.support:support-v4-28.0.0">
       <CLASSES>
-        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/101f2fa3615473231673124b5c271a12/res" />
-        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/101f2fa3615473231673124b5c271a12/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/eb95ad5537736908519a26448dba8f9d/res" />
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/eb95ad5537736908519a26448dba8f9d/jars/classes.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-v4/26.1.0/9c53eab3272b3b26583b17facac2e90d264b2788/support-v4-26.1.0-sources.jar!/" />
-      </SOURCES>
+      <SOURCES />
     </library>
     <library name="Gradle: com.android.support:support-vector-drawable-28.0.0">
       <CLASSES>
@@ -521,6 +520,14 @@
       </JAVADOC>
       <SOURCES />
     </library>
+    <library name="Gradle: com.google.android.gms:play-services-clearcut-16.0.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-clearcut-16.0.0.aar/28feefcce782839443f25fd1f6e688b7/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-clearcut-16.0.0.aar/28feefcce782839443f25fd1f6e688b7/res" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="Gradle: com.google.android.gms:play-services-flags-16.0.1">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-flags-16.0.1.aar/d20fd362038bec3f4868a9537bd7b77a/jars/classes.jar!/" />
@@ -549,6 +556,14 @@
       </JAVADOC>
       <SOURCES />
     </library>
+    <library name="Gradle: com.google.android.gms:play-services-phenotype-16.0.0">
+      <CLASSES>
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-phenotype-16.0.0.aar/0c27d3cd7fd534b67451820ae1da48cc/res" />
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-phenotype-16.0.0.aar/0c27d3cd7fd534b67451820ae1da48cc/jars/classes.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="Gradle: com.google.android.gms:play-services-stats-16.0.1">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-stats-16.0.1.aar/351c369043fe61e60ef3582ecb6b16a9/jars/classes.jar!/" />
@@ -563,6 +578,26 @@
         <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-tasks-16.0.1.aar/29d02beba09a3cbb79d81b6b6b54e97f/res" />
       </CLASSES>
       <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="Gradle: com.google.android.gms:play-services-vision-17.0.2">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-vision-17.0.2.aar/468440098375d30c250ecaa52a2c0fd1/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-vision-17.0.2.aar/468440098375d30c250ecaa52a2c0fd1/res" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-vision/17.0.2/9d117eb743f4f45ad4432e8395d3df6480b4159a/play-services-vision-17.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES />
+    </library>
+    <library name="Gradle: com.google.android.gms:play-services-vision-common-17.0.2">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-vision-common-17.0.2.aar/51b21a1bf64052558f02c275434a45c3/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-vision-common-17.0.2.aar/51b21a1bf64052558f02c275434a45c3/res" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-vision-common/17.0.2/60ff750d6bcc69d8447735711ca788eb3cdfbf39/play-services-vision-common-17.0.2-javadoc.jar!/" />
+      </JAVADOC>
       <SOURCES />
     </library>
     <library name="Gradle: com.google.code.findbugs:jsr305:2.0.1@jar">
@@ -628,26 +663,20 @@
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: com.google.firebase:firebase-database-16.0.1">
+    <library name="Gradle: com.google.firebase:firebase-database-16.0.4">
       <CLASSES>
-        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-16.0.1.aar/c4578f2df4499cbd22cbff612fb76ed0/res" />
-        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-16.0.1.aar/c4578f2df4499cbd22cbff612fb76ed0/jars/classes.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-16.0.4.aar/90cb7d734823bdd70a9a3197ff53f5b8/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-16.0.4.aar/90cb7d734823bdd70a9a3197ff53f5b8/res" />
       </CLASSES>
-      <JAVADOC />
+      <JAVADOC>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-database/16.0.4/f8e7a3f62908b89e21e55a52a327980785c1e16b/firebase-database-16.0.4-javadoc.jar!/" />
+      </JAVADOC>
       <SOURCES />
     </library>
-    <library name="Gradle: com.google.firebase:firebase-database-collection-15.0.1">
+    <library name="Gradle: com.google.firebase:firebase-database-collection-16.0.0">
       <CLASSES>
-        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-collection-15.0.1.aar/d31f2dc711d6d59804114586e6568630/res" />
-        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-collection-15.0.1.aar/d31f2dc711d6d59804114586e6568630/jars/classes.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="Gradle: com.google.firebase:firebase-database-connection-16.0.1">
-      <CLASSES>
-        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-connection-16.0.1.aar/e742a1cd4c0c27db7acc54c8299b4437/res" />
-        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-connection-16.0.1.aar/e742a1cd4c0c27db7acc54c8299b4437/jars/classes.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-collection-16.0.0.aar/17efbd88296a78c3c04a00d610e4f844/jars/classes.jar!/" />
+        <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-collection-16.0.0.aar/17efbd88296a78c3c04a00d610e4f844/res" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

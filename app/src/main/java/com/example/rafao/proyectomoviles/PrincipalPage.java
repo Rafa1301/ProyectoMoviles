@@ -2,16 +2,15 @@ package com.example.rafao.proyectomoviles;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
+import com.example.rafao.proyectomoviles.Fragments.InventoryFragment;
 import com.example.rafao.proyectomoviles.Fragments.LoginFragment;
-import com.example.rafao.proyectomoviles.Fragments.MainFragment;
-import com.example.rafao.proyectomoviles.Fragments.RegisterFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +72,7 @@ public class PrincipalPage extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new LoginFragment());
         adapter.addFrag(new ScannerQR());
-        adapter.addFrag(new VoiceFragment());
+        adapter.addFrag(new InventoryFragment());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
