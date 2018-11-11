@@ -14,11 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rafao.proyectomoviles.MainActivity;
+import com.example.rafao.proyectomoviles.Models.Usuario;
 import com.example.rafao.proyectomoviles.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -29,6 +35,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     private String user, pass;
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference root;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +49,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
+        root = database.getReference("/Usuarios");
 
         users = view.findViewById(R.id.editText);
         password = view.findViewById(R.id.editText2);
@@ -58,11 +69,28 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success");
+                        root.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot item: dataSnapshot.getChildren()) {
+                                    Usuario userLogin = item.getValue(Usuario.class);
+                                    if(userLogin.correo.equals(user)){
+                                        if(userLogin.habilitado != 0){
+                                            Toast.makeText(getContext(), "Puedes Entrar",
+                                                Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            Toast.makeText(getContext(), "No puedes iniciar sesion.\nContacta al administrador.",
+                                                Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {}
+                        });
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.getException());
                         Toast.makeText(getContext(), "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                     }

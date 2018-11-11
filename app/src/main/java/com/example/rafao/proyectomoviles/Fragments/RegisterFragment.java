@@ -96,9 +96,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                                         HashMap<String, Object> hashMap = new HashMap<>();
                                         hashMap.put(id, newUser);
 
-                                        users.updateChildren(hashMap); //updateChildren envía los datos asíncronamente por lo que hay que definir los listener correspodientes
-                                        Toast.makeText(getContext(), "Registro Exitoso.",
-                                                Toast.LENGTH_SHORT).show();
+                                        users.updateChildren(hashMap)
+                                                .addOnSuccessListener( v -> {
+                                                    Toast.makeText(getContext(), "Registro Exitoso.",
+                                                        Toast.LENGTH_SHORT).show();
+                                                }); //updateChildren envía los datos asíncronamente por lo que hay que definir los listener correspodientes
                                     }
                                 });
                     }else{
