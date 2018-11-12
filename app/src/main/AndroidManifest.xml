@@ -3,6 +3,7 @@
     package="com.example.rafao.proyectomoviles">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.Camera.autofocus" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -26,6 +27,9 @@
 
         <activity
             android:name=".PrincipalPage"></activity>
+
+        <activity
+            android:name=".Camera"></activity>
 
         <service
             android:name=".Utils.NotificationUtil">

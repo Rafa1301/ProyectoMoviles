@@ -33,6 +33,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     private FirebaseDatabase database;
     private DatabaseReference root;
 
+    //SessionManagement session;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,6 +56,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         btn = view.findViewById(R.id.btn2);
         btn.setOnClickListener(this);
 
+        //session = new SessionManagement(getContext());
+        //session.checkLogin();
+
     }
 
     public void singIn(){
@@ -71,6 +76,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                                     Usuario userLogin = item.getValue(Usuario.class);
                                     if(userLogin.correo.equals(user)){
                                         if(userLogin.habilitado != 0){
+                                            //session.createLoginSession(userLogin.nombre,user);
                                             Intent intent = new Intent(getContext(),PrincipalPage.class);
                                             startActivity(intent);
                                         }else{

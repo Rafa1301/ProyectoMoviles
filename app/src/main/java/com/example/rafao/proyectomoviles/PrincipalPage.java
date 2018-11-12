@@ -9,8 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.example.rafao.proyectomoviles.Fragments.InventoryFragment;
-import com.example.rafao.proyectomoviles.Fragments.LoginFragment;
+import com.example.rafao.proyectomoviles.Fragments.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,7 @@ public class PrincipalPage extends AppCompatActivity {
 
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    public static class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
 
         public ViewPagerAdapter(FragmentManager manager) {
@@ -71,7 +70,7 @@ public class PrincipalPage extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new LoginFragment());
-        adapter.addFrag(new ScannerQR());
+        adapter.addFrag(new ScannerQR("N00138468"));
         adapter.addFrag(new InventoryFragment());
         viewPager.setAdapter(adapter);
 

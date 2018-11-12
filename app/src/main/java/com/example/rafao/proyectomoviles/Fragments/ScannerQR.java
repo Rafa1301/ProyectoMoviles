@@ -1,4 +1,4 @@
-package com.example.rafao.proyectomoviles;
+package com.example.rafao.proyectomoviles.Fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.rafao.proyectomoviles.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -27,11 +28,16 @@ import java.io.IOException;
 
 
 @SuppressLint("ValidFragment")
-class ScannerQR extends Fragment{
+public class ScannerQR extends Fragment{
     SurfaceView surfaceView;
     CameraSource cameraSource;
     TextView textView;
     BarcodeDetector barcodeDetector;
+    String codigo;
+
+    public ScannerQR(String code){
+        codigo  = code;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,15 +48,14 @@ class ScannerQR extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        surfaceView = (SurfaceView) view.findViewById(R.id.surfaceview1);
-        textView = (TextView) view.findViewById(R.id.textView);
+        surfaceView = view.findViewById(R.id.surfaceview1);
+        textView = view.findViewById(R.id.textView);
 
         barcodeDetector = new BarcodeDetector.Builder(getContext())
                 .setBarcodeFormats(Barcode.QR_CODE).build();
 
         cameraSource = new CameraSource.Builder(getContext(), barcodeDetector)
                 .setRequestedPreviewSize(640, 480).build();
-
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -92,7 +97,14 @@ class ScannerQR extends Fragment{
                         public void run() {
                             Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(100);
-                            textView.setText(qrCodes.valueAt(0).displayValue);
+                            if(codigo.length() == 0) {
+                                textView.setText(qrCodes.valueAt(0).displayValue);
+                            }else{
+                                String capture = qrCodes.valueAt(0).displayValue;
+                                if(codigo.equals(capture)){
+                                    textView.setText("El codigo es el mismo");
+                                }
+                            }
 
                         }
 
