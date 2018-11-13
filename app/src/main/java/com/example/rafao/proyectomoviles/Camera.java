@@ -14,7 +14,7 @@ public class Camera extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private String codigo;
+    private String codigo = "";
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +24,7 @@ public class Camera extends AppCompatActivity {
         if (extras == null) {
             codigo = "";
         } else {
+            //Log.i("Camera",codigo);
             codigo = extras.getString("Codigo");
         }
 

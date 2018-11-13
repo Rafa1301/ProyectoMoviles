@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.rafao.proyectomoviles.MainActivity;
 import com.example.rafao.proyectomoviles.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -63,8 +61,8 @@ public class ScannerOCR extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        cameraview = (SurfaceView) view.findViewById(R.id.ocr);
-        textview = (TextView) view.findViewById(R.id.textviewocr);
+        cameraview = view.findViewById(R.id.ocr);
+        textview = view.findViewById(R.id.textviewocr);
 
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getContext()).build();
         if (!textRecognizer.isOperational()) {
@@ -115,17 +113,14 @@ public class ScannerOCR extends Fragment {
 
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
                     if(items.size()!= 0){
-                        textview.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                StringBuilder stringBuilder = new StringBuilder();
-                                for (int i = 0; i<items.size();++i){
-                                    TextBlock item = items.valueAt(i);
-                                    stringBuilder.append(item.getValue());
-                                    stringBuilder.append("\n");
-                                }
-                                textview.setText(stringBuilder.toString());
+                        textview.post(() -> {
+                            StringBuilder stringBuilder = new StringBuilder();
+                            for (int i = 0; i<items.size();++i){
+                                TextBlock item = items.valueAt(i);
+                                stringBuilder.append(item.getValue());
+                                stringBuilder.append("\n");
                             }
+                            textview.setText(stringBuilder.toString());
                         });
                     }
 

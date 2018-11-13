@@ -28,12 +28,14 @@ import java.io.IOException;
 
 
 @SuppressLint("ValidFragment")
-public class ScannerQR extends Fragment{
+public class ScannerQR extends Fragment {
     SurfaceView surfaceView;
     CameraSource cameraSource;
     TextView textView;
     BarcodeDetector barcodeDetector;
     String codigo;
+
+    final int RequestCameraPermissionID = 1001;
 
     public ScannerQR(String code){
         codigo  = code;
@@ -55,14 +57,19 @@ public class ScannerQR extends Fragment{
                 .setBarcodeFormats(Barcode.QR_CODE).build();
 
         cameraSource = new CameraSource.Builder(getContext(), barcodeDetector)
-                .setRequestedPreviewSize(640, 480).build();
+                .setRequestedPreviewSize(640, 480)
+                .setRequestedFps(2.0f)
+                .setAutoFocusEnabled(true)
+                .build();
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
                     if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                        return;
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{Manifest.permission.CAMERA},
+                                RequestCameraPermissionID);
                     }
                     cameraSource.start(holder);
                 } catch (IOException e) {
@@ -92,20 +99,16 @@ public class ScannerQR extends Fragment{
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 SparseArray<Barcode> qrCodes =detections.getDetectedItems();
                 if(qrCodes.size() != 0){
-                    textView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(100);
-                            if(codigo.length() == 0) {
-                                textView.setText(qrCodes.valueAt(0).displayValue);
-                            }else{
-                                String capture = qrCodes.valueAt(0).displayValue;
-                                if(codigo.equals(capture)){
-                                    textView.setText("El codigo es el mismo");
-                                }
+                    textView.post(() -> {
+                        Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        vibrator.vibrate(100);
+                        if(codigo.length() == 0) {
+                            textView.setText(qrCodes.valueAt(0).displayValue);
+                        }else{
+                            String capture = qrCodes.valueAt(0).displayValue;
+                            if(codigo.equals(capture)){
+                                textView.setText("El codigo es el mismo");
                             }
-
                         }
 
                     });

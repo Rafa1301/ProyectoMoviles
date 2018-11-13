@@ -92,23 +92,20 @@ public class InventoryFragment extends Fragment {
             }
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String dependencie = spinner1.getSelectedItem().toString();
-                int codigo = getCode(dependencie);
+        btn.setOnClickListener(v -> {
+            String dependencie = spinner1.getSelectedItem().toString();
+            int codigo = getCode(dependencie);
 
-                InfoListFragment fragment2 = new InfoListFragment();
-                Bundle data = new Bundle();
-                data.putInt("codigo",codigo);
-                fragment2.setArguments(data);
+            InfoListFragment fragment2 = new InfoListFragment();
+            Bundle data = new Bundle();
+            data.putInt("codigo",codigo);
+            fragment2.setArguments(data);
 
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.rootContainer,fragment2)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .commit ();
-            }
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.rootContainer,fragment2)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit ();
         });
 
     }
