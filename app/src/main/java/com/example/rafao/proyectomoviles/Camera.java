@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.example.rafao.proyectomoviles.Fragments.ScannerQR;
+import com.example.rafao.proyectomoviles.Fragments.ScannerFragment;
 
 public class Camera extends AppCompatActivity {
 
@@ -34,7 +34,7 @@ public class Camera extends AppCompatActivity {
 
     private void initPaging(String codigo) {
         CustomPagerAdapter pagerAdapter = new CustomPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragment(new ScannerQR(codigo));
+        pagerAdapter.addFragment(new ScannerFragment(codigo));
 
         ViewPager viewPager = findViewById(R.id.viewpager1);
         viewPager.setAdapter(pagerAdapter);

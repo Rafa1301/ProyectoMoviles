@@ -20,10 +20,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
 
-
-
-        //user = findViewById(R.id.editText3);
-        //pass = findViewById(R.id.editText4);
         initPaging();
     }
 
