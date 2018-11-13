@@ -70,7 +70,7 @@ public class PrincipalPage extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new LoginFragment());
-        adapter.addFrag(new ScannerQR("N00138468"));
+        adapter.addFrag(new ScannerOCR());
         adapter.addFrag(new InventoryFragment());
         viewPager.setAdapter(adapter);
 
