@@ -42,8 +42,8 @@ public class UserStatesFragment extends Fragment implements IUserStates {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         ValueEventListener event = new ValueEventListener() {
             @Override
@@ -56,7 +56,7 @@ public class UserStatesFragment extends Fragment implements IUserStates {
                     }
                 }
 
-                RecyclerView recyclerView = getActivity().findViewById (R.id.recview);
+                RecyclerView recyclerView = view.findViewById (R.id.recview);
                 recyclerView.setLayoutManager (new LinearLayoutManager(getContext (),  LinearLayoutManager.VERTICAL, false));
                 recyclerView.setAdapter (new UserStatesAdapter(getContext (), list));
 
@@ -69,6 +69,7 @@ public class UserStatesFragment extends Fragment implements IUserStates {
         };
 
         root.addValueEventListener(event);
+
     }
 
 }

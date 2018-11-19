@@ -6,12 +6,10 @@ import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -76,7 +74,7 @@ public class CRUDFragment extends Fragment {
             }
         });
 
-        spinner1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /* spinner1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 InventoryInfoFragment fragment = new InventoryInfoFragment();
@@ -86,7 +84,7 @@ public class CRUDFragment extends Fragment {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit ();
             }
-        });
+        });*/
 
     }
 
