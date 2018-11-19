@@ -10,12 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.rafao.proyectomoviles.Models.Dependencia;
+import com.example.rafao.proyectomoviles.ProductsActivity;
+import com.example.rafao.proyectomoviles.ProductsList;
 import com.example.rafao.proyectomoviles.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,15 +28,15 @@ import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
-public class CRUDFragment extends Fragment {
+public class CRUDFragment extends Fragment implements View.OnClickListener {
 
-    private TextView text;
     private Spinner spinner1;
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1;
     private  FirebaseDatabase database;
     private ArrayList<Dependencia> DependenceList = new ArrayList<>();
     private ArrayList<String> DependencieList = new ArrayList<>();
     private DatabaseReference root;
+    private Button btn1,btn2;
 
     @Nullable
     @Override
@@ -48,10 +49,7 @@ public class CRUDFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         database = FirebaseDatabase.getInstance();
-       // text = view.findViewById(R.id.voice);
         spinner1 = view.findViewById(R.id.spinner3);
-
-        //text.setOnClickListener(v -> startVoiceRecognitionActivity());
 
         root = database.getReference("/Dependencia");
         root.addValueEventListener(new ValueEventListener() {
@@ -75,23 +73,11 @@ public class CRUDFragment extends Fragment {
             }
         });
 
-        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("CRUD",spinner1.getSelectedItem().toString());
-//                InventoryInfoFragment fragment = new InventoryInfoFragment();
-//                getActivity().getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.rootContainer,fragment)
-//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//                        .commit ();
-            }
+        btn1 = view.findViewById(R.id.agregar);
+        btn2 = view.findViewById(R.id.mostrar);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
 
     }
 
@@ -121,5 +107,25 @@ public class CRUDFragment extends Fragment {
             //Si la primera palabra es LLAMAR
             Log.i("CRUD",palabras[0]);
             }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        String dep = spinner1.getSelectedItem().toString();
+        int code = getCode(dep);
+        Intent intent;
+        if(v.getId() == R.id.agregar){
+            intent = new Intent(getActivity(),ProductsActivity.class);
+        }else{
+            intent = new Intent(getActivity(),ProductsList.class);
+        }
+        intent.putExtra("code",code);
+        startActivity(intent);
+    }
+
+    private int getCode(String dependencie) {
+        int pos = DependencieList.indexOf(dependencie);
+        return DependenceList.get(pos).Codigo;
     }
 }

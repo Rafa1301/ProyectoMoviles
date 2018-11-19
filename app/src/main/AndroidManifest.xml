@@ -31,6 +31,14 @@
             android:name=".Camera"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ProductsList"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ProductsActivity"
+            android:screenOrientation="portrait" />
+
         <service
             android:name=".Utils.NotificationService"
             android:stopWithTask="false">
