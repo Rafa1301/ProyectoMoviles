@@ -103,7 +103,7 @@ public class InventoryFragment extends Fragment {
 
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.rootContainer,fragment2)
+                    .replace(R.id.rootContainer01,fragment2)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit ();
         });
