@@ -24,6 +24,8 @@
         <activity
             android:name=".PrincipalPage" android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".Camera" android:screenOrientation="portrait"></activity>
 
         <service
             android:name=".Utils.NotificationUtil">
