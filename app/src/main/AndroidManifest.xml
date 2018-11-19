@@ -3,7 +3,9 @@
     package="com.example.rafao.proyectomoviles">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.Camera.autofocus" />
+
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -13,29 +15,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".PrincipalPage" android:screenOrientation="portrait"></activity>
-
+            android:name=".PrincipalPage"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".Camera" android:screenOrientation="portrait"></activity>
+            android:name=".Camera"
+            android:screenOrientation="portrait" />
 
         <service
-            android:name=".Utils.NotificationUtil">
+            android:name=".Utils.NotificationService"
+            android:stopWithTask="false">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="ocr"></meta-data>
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="ocr" />
 
     </application>
 

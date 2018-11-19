@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -74,17 +75,23 @@ public class CRUDFragment extends Fragment {
             }
         });
 
-        /* spinner1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InventoryInfoFragment fragment = new InventoryInfoFragment();
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.rootContainer,fragment)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .commit ();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("CRUD",spinner1.getSelectedItem().toString());
+//                InventoryInfoFragment fragment = new InventoryInfoFragment();
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.rootContainer,fragment)
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                        .commit ();
             }
-        });*/
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 

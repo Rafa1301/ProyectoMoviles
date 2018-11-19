@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,18 +33,20 @@
     <FrameLayout
         android:id="@+id/rootContainer"
         android:layout_width="match_parent"
-        android:layout_height="491dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/spinner3"
+        android:layout_marginTop="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="254dp">
+            android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/agregar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:background="@android:color/holo_blue_dark"
@@ -53,21 +56,12 @@
                 android:textStyle="bold" />
 
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="254dp"
-            android:layout_marginTop="257dp">
-
-
             <Button
                 android:id="@+id/mostrar"
+                android:layout_below="@id/agregar"
                 android:layout_width="match_parent"
-                android:layout_height="232dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/holo_blue_dark"
                 android:drawableRight="@drawable/eye"
                 android:text="Mostrar"
