@@ -59,8 +59,8 @@ public class ScannerFragment extends Fragment {
         cameraview = view.findViewById(R.id.surfaceview1);
         textview = view.findViewById(R.id.textView);
 
-        barcodeDetector = new BarcodeDetector.Builder(getContext())
-                .setBarcodeFormats(Barcode.QR_CODE).build();
+        barcodeDetector = new BarcodeDetector.Builder(getContext()).setBarcodeFormats(Barcode.CODE_128)
+                .build();
 
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
@@ -126,7 +126,6 @@ public class ScannerFragment extends Fragment {
         });
 
         MultiDetector multiDetector = new MultiDetector.Builder()
-                .add(textRecognizer)
                 .add(barcodeDetector)
                 .build();
 

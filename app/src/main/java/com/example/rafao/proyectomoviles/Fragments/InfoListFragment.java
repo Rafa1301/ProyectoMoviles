@@ -108,7 +108,7 @@ class InfoListViewHolder extends RecyclerView.ViewHolder{
 
     public InfoListViewHolder(@NonNull View itemView) {
         super(itemView);
-        text = itemView.findViewById(R.id.name);
+        text = itemView.findViewById(R.id.textView);
     }
 
     public void bind(Productos productos) {

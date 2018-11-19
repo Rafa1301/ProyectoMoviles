@@ -14,7 +14,7 @@
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="18dp"
         android:layout_x="133dp"
         android:layout_y="67dp"
         app:srcCompat="@drawable/uv" />
@@ -24,12 +24,12 @@
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="225dp"
+        android:layout_marginTop="25dp"
         android:background="#11000000"
         android:drawableLeft="@drawable/face"
         android:hint="Nombre"
+        android:layout_below="@+id/imageView3"
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
@@ -90,7 +90,7 @@
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="74dp"
+        android:layout_marginBottom="65dp"
         app:cardBackgroundColor="#000"
         app:cardCornerRadius="20dp">
 

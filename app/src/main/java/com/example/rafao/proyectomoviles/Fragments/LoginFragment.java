@@ -78,6 +78,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                                         if(userLogin.habilitado != 0){
                                             //session.createLoginSession(userLogin.nombre,user);
                                             Intent intent = new Intent(getContext(),PrincipalPage.class);
+                                            intent.putExtra("user",userLogin);
                                             startActivity(intent);
                                         }else{
                                             Toast.makeText(getContext(), "No puedes iniciar sesion.\nContacta al administrador.",

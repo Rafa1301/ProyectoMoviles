@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/motivo"
         android:text="Motivo"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textStyle="bold"
         android:textColor="#000"
 
@@ -21,7 +21,7 @@
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="match_parent"
-        android:layout_height="40sp"
+        android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/motivo"
         />
@@ -30,16 +30,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dependencia"
-        android:layout_marginTop="90dp"
+        android:layout_below="@id/spinner1"
+        android:layout_marginTop="10dp"
         android:text="Dependencia"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textStyle="bold"
         android:textColor="#000"
         />
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="match_parent"
-        android:layout_height="40sp"
+        android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/dependencia"
         />

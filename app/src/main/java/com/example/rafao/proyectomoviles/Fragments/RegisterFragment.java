@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,7 @@ import android.widget.Toast;
 
 import com.example.rafao.proyectomoviles.Models.Usuario;
 import com.example.rafao.proyectomoviles.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -88,10 +83,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                                         String id = users.push().getKey();
 
                                         Usuario newUser = new Usuario();
+                                        newUser.id = id;
                                         newUser.nombre = FirstName;
                                         newUser.apellidos = LastName;
                                         newUser.correo = usuario;
                                         newUser.habilitado = 0;
+                                        newUser.admin = 0;
 
                                         HashMap<String, Object> hashMap = new HashMap<>();
                                         hashMap.put(id, newUser);
