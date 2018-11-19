@@ -13,8 +13,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.rafao.proyectomoviles.Fragments.CRUDFragment;
 import com.example.rafao.proyectomoviles.Fragments.InventoryFragment;
-import com.example.rafao.proyectomoviles.Fragments.LoginFragment;
-import com.example.rafao.proyectomoviles.Fragments.UserStatesFragment;
+import com.example.rafao.proyectomoviles.Fragments.StatesFragment;
 import com.example.rafao.proyectomoviles.Models.Usuario;
 
 import java.util.ArrayList;
@@ -81,7 +80,7 @@ public class PrincipalPage extends AppCompatActivity {
         adapter.addFrag(new CRUDFragment());
         adapter.addFrag(new InventoryFragment());
         if(user.admin != 0){
-            adapter.addFrag(new UserStatesFragment());
+            adapter.addFrag(new StatesFragment());
         }
         viewPager.setAdapter(adapter);
 
