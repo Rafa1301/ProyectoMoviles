@@ -27,6 +27,7 @@
         android:drawableStart="@drawable/voz" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerP"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/voz"

@@ -2,11 +2,9 @@ package com.example.rafao.proyectomoviles.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static android.app.Activity.RESULT_OK;
-
 public class CRUDFragment extends Fragment implements View.OnClickListener {
 
     private Spinner spinner1;
-    private static final int VOICE_RECOGNITION_REQUEST_CODE = 1;
     private  FirebaseDatabase database;
     private ArrayList<Dependencia> DependenceList = new ArrayList<>();
     private ArrayList<String> DependencieList = new ArrayList<>();
@@ -79,34 +74,6 @@ public class CRUDFragment extends Fragment implements View.OnClickListener {
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
 
-    }
-
-    private void startVoiceRecognitionActivity() {
-        // Definición del intent para realizar en análisis del mensaje
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        // Indicamos el modelo de lenguaje para el intent
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        // Definimos el mensaje que aparecerá
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"¿Que desea realizar?");
-        // Lanzamos la actividad esperando resultados
-        startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //Si el reconocimiento a sido bueno
-        if(requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK){
-            //El intent nos envia un ArrayList aunque en este caso solo
-            //utilizaremos la pos.0
-            ArrayList<String> matches = data.getStringArrayListExtra
-                    (RecognizerIntent.EXTRA_RESULTS);
-            //Separo el texto en palabras.
-            String [ ] palabras = matches.get(0).split(" ");
-            //Si la primera palabra es LLAMAR
-            Log.i("CRUD",palabras[0]);
-            }
     }
 
     @Override
