@@ -111,8 +111,9 @@ public class PrincipalPage extends AppCompatActivity {
 
     private void setIconForTabs() {
         int[] tabIcons = {
-                R.mipmap.ic_home,
-                R.mipmap.ic_info,
+                R.mipmap.ic_home2,
+                R.mipmap.ic_note,
+                R.mipmap.ic_person,
         };
 
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
