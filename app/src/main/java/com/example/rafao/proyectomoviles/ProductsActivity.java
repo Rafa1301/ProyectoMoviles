@@ -47,7 +47,7 @@ public class ProductsActivity extends AppCompatActivity implements View.OnClickL
         String desc = this.desc.getText().toString();
 
         if(v.getId() == R.id.addmas){
-            Productos newProduct = new Productos(code,dep,desc);
+            Productos newProduct = new Productos(code,dep,desc,1);
 
             String id = root.push().getKey();
 

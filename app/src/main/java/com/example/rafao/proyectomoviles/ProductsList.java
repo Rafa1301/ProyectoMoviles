@@ -133,6 +133,10 @@ class ProductListViewHolder extends RecyclerView.ViewHolder{
     public void bind(Productos productos) {
         String txt = productos.Descripcion;
         sw.setText(txt);
-
+        if(productos.Estado == 1){
+            sw.setSelected(true);
+        }else{
+            sw.setSelected(false);
+        }
     }
 }
