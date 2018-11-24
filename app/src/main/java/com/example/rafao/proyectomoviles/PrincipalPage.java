@@ -33,7 +33,7 @@ public class PrincipalPage extends AppCompatActivity {
         Intent i = getIntent();
         user = (Usuario)i.getSerializableExtra("user");
 
-        toolbar =  findViewById(R.id.toolbar);
+        toolbar =  findViewById(R.id.include);
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.tabs);
 
