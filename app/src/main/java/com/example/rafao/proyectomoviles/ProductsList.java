@@ -1,5 +1,6 @@
 package com.example.rafao.proyectomoviles;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -132,7 +133,7 @@ class ProductListViewHolder extends RecyclerView.ViewHolder{
         tv = itemView.findViewById(R.id.textView2);
     }
 
-
+    @SuppressLint("ResourceAsColor")
     public void bind(Productos productos) {
         String txt = productos.Descripcion;
         tv.setText(txt);
@@ -142,7 +143,7 @@ class ProductListViewHolder extends RecyclerView.ViewHolder{
             i.putExtra("Producto",productos);
             v.getContext().startActivity(i);
         });
-
+        tv.setTextColor(R.color.black);
         if(productos.Estado == 1){
             sw.setChecked(true);
         }else{
