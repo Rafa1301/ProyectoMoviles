@@ -53,30 +53,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         database = FirebaseDatabase.getInstance();
 
         root = database.getReference("/Usuarios");
-
         sp = getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
-        if(sp.contains("email")){
-            String email = sp.getString("email","");
-            intent = new Intent(getContext(),PrincipalPage.class);
-            root.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot it: dataSnapshot.getChildren()) {
-                        Usuario value = it.getValue(Usuario.class);
-                        if(value.correo.equals(email)){
-                            intent.putExtra("user",value);
-                            startActivity(intent);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-
         users = view.findViewById(R.id.editText);
         password = view.findViewById(R.id.editText2);
 
@@ -105,6 +82,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                                             intent.putExtra("user",userLogin);
                                             save();
                                             startActivity(intent);
+                                            getActivity().finish();
                                         }else{
                                             Toast.makeText(getContext(), "No puedes iniciar sesion.\nContacta al administrador.",
                                                 Toast.LENGTH_SHORT).show();

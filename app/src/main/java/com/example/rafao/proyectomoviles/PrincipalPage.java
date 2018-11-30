@@ -33,7 +33,7 @@ public class PrincipalPage extends AppCompatActivity {
         Intent i = getIntent();
         user = (Usuario)i.getSerializableExtra("user");
 
-        toolbar =  findViewById(R.id.include);
+        toolbar =  findViewById(R.id.toolbar);
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.tabs);
 
@@ -94,10 +94,13 @@ public class PrincipalPage extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position){
                     case 0:
-                        getSupportActionBar().setTitle("Home");
+                        getSupportActionBar().setTitle("Inventario");
                         break;
                     case 1:
-                        getSupportActionBar().setTitle("About");
+                        getSupportActionBar().setTitle("Levantamientos");
+                        break;
+                    case 2:
+                        getSupportActionBar().setTitle("Usuarios");
                         break;
                 }
             }

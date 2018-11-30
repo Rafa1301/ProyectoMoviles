@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.rafao.proyectomoviles.Models.Productos;
 import com.google.firebase.database.DataSnapshot;
@@ -123,20 +124,38 @@ class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHolder>{
 class ProductListViewHolder extends RecyclerView.ViewHolder{
 
     private Switch sw;
+    private TextView tv;
 
     public ProductListViewHolder(@NonNull View itemView) {
         super(itemView);
         sw = itemView.findViewById(R.id.switch2);
+        tv = itemView.findViewById(R.id.textView2);
     }
 
 
     public void bind(Productos productos) {
         String txt = productos.Descripcion;
-        sw.setText(txt);
+        tv.setText(txt);
+        tv.setOnClickListener(v -> {
+            Intent i = new Intent(v.getContext(),ProductsActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra("Producto",productos);
+            v.getContext().startActivity(i);
+        });
+
         if(productos.Estado == 1){
-            sw.setSelected(true);
+            sw.setChecked(true);
         }else{
-            sw.setSelected(false);
+            sw.setChecked(false);
         }
+        sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(sw.isChecked() == true){
+                productos.Estado = 1;
+            }else{
+                productos.Estado = 0;
+            }
+            DatabaseReference root = FirebaseDatabase.getInstance().getReference("/Usuarios").child(productos.id);
+            root.setValue(productos);
+        });
     }
 }
