@@ -28,8 +28,8 @@ public class CRUDFragment extends Fragment implements View.OnClickListener {
 
     private Spinner spinner1;
     private  FirebaseDatabase database;
-    private ArrayList<Dependencia> DependenceList = new ArrayList<>();
-    private ArrayList<String> DependencieList = new ArrayList<>();
+    private ArrayList<Dependencia> DependenceList;
+    private ArrayList<String> DependencieList;
     private DatabaseReference root;
     private Button btn1,btn2;
 
@@ -50,6 +50,8 @@ public class CRUDFragment extends Fragment implements View.OnClickListener {
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DependenceList = new ArrayList<>();
+                DependencieList = new ArrayList<>();
                 for (DataSnapshot item: dataSnapshot.getChildren()) {
                     Dependencia dependence = item.getValue(Dependencia.class);
                     DependenceList.add(dependence);

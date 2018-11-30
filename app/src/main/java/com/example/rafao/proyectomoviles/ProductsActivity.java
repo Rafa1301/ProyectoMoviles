@@ -18,7 +18,7 @@ public class ProductsActivity extends AppCompatActivity implements View.OnClickL
     private Button btn1;
     private EditText code,desc;
     private int dep;
-
+    private Productos pr;
     private FirebaseDatabase database;
     private DatabaseReference root;
 
@@ -30,11 +30,19 @@ public class ProductsActivity extends AppCompatActivity implements View.OnClickL
         database = FirebaseDatabase.getInstance();
         root = database.getReference("/Productos");
 
-        dep = getIntent().getIntExtra("code",0);
+        pr = (Productos) getIntent().getSerializableExtra("Producto");
 
         code = findViewById(R.id.code);
         desc = findViewById(R.id.desc);
         btn1 = findViewById(R.id.addmas);
+
+        if(pr == null) {
+            dep = getIntent().getIntExtra("code", 0);
+        }else{
+            code.setText(pr.Codigo);
+            desc.setText(pr.Descripcion);
+            btn1.setText("Actualizar");
+        }
 
         btn1.setOnClickListener(this);
 
@@ -47,12 +55,19 @@ public class ProductsActivity extends AppCompatActivity implements View.OnClickL
         String desc = this.desc.getText().toString();
 
         if(v.getId() == R.id.addmas){
-            Productos newProduct = new Productos(code,dep,desc);
-
-            String id = root.push().getKey();
 
             HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put(id, newProduct);
+
+            if(pr == null) {
+                Productos newProduct = new Productos(code, dep, desc, 1, 0);
+                String id = root.push().getKey();
+                newProduct.id = id;
+                hashMap.put(id, newProduct);
+            }else{
+                pr.Codigo = code;
+                pr.Descripcion = desc;
+                hashMap.put(pr.id, pr);
+            }
 
             root.updateChildren(hashMap)
                     .addOnSuccessListener(aVoid -> {
