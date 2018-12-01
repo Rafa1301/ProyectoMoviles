@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.rafao.proyectomoviles.Fragments.CRUDFragment;
 import com.example.rafao.proyectomoviles.Fragments.InventoryFragment;
@@ -47,6 +48,18 @@ public class PrincipalPage extends AppCompatActivity {
         setupViewPager(viewPager);
 
         setIconForTabs();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.cerrar ){
+            cerrar_sesion();
+        }
+        return true;
+    }
+
+    private void cerrar_sesion() {
 
     }
 
