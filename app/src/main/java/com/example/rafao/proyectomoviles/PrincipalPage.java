@@ -1,6 +1,8 @@
 package com.example.rafao.proyectomoviles;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -26,6 +28,7 @@ public class PrincipalPage extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Usuario user;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,15 +43,13 @@ public class PrincipalPage extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
 
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setIcon(R.drawable.tres);
 
         tabLayout.setupWithViewPager(viewPager);
-
 
         setupViewPager(viewPager);
 
         setIconForTabs();
-
+        sp = getApplicationContext().getSharedPreferences("myPref", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -60,7 +61,12 @@ public class PrincipalPage extends AppCompatActivity {
     }
 
     private void cerrar_sesion() {
-
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove("email");
+        editor.commit();
+        Intent i = new Intent(this,MainActivity.class);
+        startActivity(i);
+        finish();
     }
 
     @Override
