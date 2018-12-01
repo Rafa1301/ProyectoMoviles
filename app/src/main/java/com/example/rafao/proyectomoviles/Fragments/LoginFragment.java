@@ -1,5 +1,6 @@
 package com.example.rafao.proyectomoviles.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.rafao.proyectomoviles.MainActivity;
 import com.example.rafao.proyectomoviles.Models.Usuario;
 import com.example.rafao.proyectomoviles.PrincipalPage;
 import com.example.rafao.proyectomoviles.R;
@@ -54,35 +56,26 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         root = database.getReference("/Usuarios");
         sp = getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
-        if (sp.contains("email")) {
-            String mail = sp.getString("email", "");
-            intent = new Intent(getContext(), PrincipalPage.class);
-            root.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot i : dataSnapshot.getChildren()) {
-                        Usuario u = i.getValue(Usuario.class);
-                        if (u.correo.equals(mail)) {
-                            intent.putExtra("user", u);
-                            //save();
-                            startActivity(intent);
-                            getActivity().finish();
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
 
         users = view.findViewById(R.id.editText);
         password = view.findViewById(R.id.editText2);
 
         btn = view.findViewById(R.id.btn2);
         btn.setOnClickListener(this);
+
+    }
+
+    public MainActivity a;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+
+
+        if (context instanceof Activity){
+            a=(MainActivity) context;
+        }
 
     }
 
@@ -105,11 +98,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                         if (userLogin.correo.equals(user)) {
                                             if (userLogin.habilitado != 0) {
                                                 //session.createLoginSession(userLogin.nombre,user);
-                                                intent = new Intent(getContext(), PrincipalPage.class);
+                                                intent = new Intent(a, PrincipalPage.class);
                                                 intent.putExtra("user", userLogin);
                                                 save();
                                                 startActivity(intent);
-                                                getActivity().finish();
+                                                //getActivity().finish();
                                             } else {
                                                 Toast.makeText(getContext(), "No puedes iniciar sesion.\nContacta al administrador.",
                                                         Toast.LENGTH_SHORT).show();
