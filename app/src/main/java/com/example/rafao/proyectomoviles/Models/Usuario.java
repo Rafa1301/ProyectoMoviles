@@ -10,5 +10,6 @@ public class Usuario implements Serializable {
     public String correo;
     public int habilitado;
     public int admin;
+    public String device_id;
 
 }

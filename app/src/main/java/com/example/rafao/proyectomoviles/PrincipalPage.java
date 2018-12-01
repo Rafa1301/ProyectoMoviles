@@ -10,12 +10,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
 import com.example.rafao.proyectomoviles.Fragments.CRUDFragment;
 import com.example.rafao.proyectomoviles.Fragments.InventoryFragment;
 import com.example.rafao.proyectomoviles.Fragments.StatesFragment;
 import com.example.rafao.proyectomoviles.Models.Usuario;
-import com.google.android.gms.vision.L;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +38,8 @@ public class PrincipalPage extends AppCompatActivity {
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.tabs);
 
-        //toolbar.setLogo(R.drawable.tres);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Home");
-        getSupportActionBar().setIcon(R.drawable.tres);
-        
+        //getSupportActionBar().setIcon(R.drawable.tres);
 
         tabLayout.setupWithViewPager(viewPager);
 
@@ -52,6 +49,15 @@ public class PrincipalPage extends AppCompatActivity {
         setIconForTabs();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+        return true;
+    }
+
+
 
     public static class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

@@ -54,6 +54,30 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
 
         root = database.getReference("/Usuarios");
         sp = getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        if(sp.contains("email")){
+            String mail = sp.getString("email","");
+            intent = new Intent(getContext(),PrincipalPage.class);
+            root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot i: dataSnapshot.getChildren()){
+                        Usuario u = i.getValue(Usuario.class);
+                        if(u.correo.equals(mail)){
+                            intent.putExtra("user",u);
+                            //save();
+                            startActivity(intent);
+                            getActivity().finish();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
         users = view.findViewById(R.id.editText);
         password = view.findViewById(R.id.editText2);
 
@@ -92,7 +116,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                             }
 
                             @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {}
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Toast.makeText(getContext(), "No existe este usuario en la base de datos.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         });
                     } else {
                         // If sign in fails, display a message to the user.

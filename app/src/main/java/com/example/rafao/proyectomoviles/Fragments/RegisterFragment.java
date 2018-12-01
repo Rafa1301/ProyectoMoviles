@@ -16,6 +16,7 @@ import com.example.rafao.proyectomoviles.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 
@@ -78,26 +79,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         mAuth.signInWithEmailAndPassword(usuario, contra)
                                 .addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
-                                        DatabaseReference users = root.child("Usuarios");
-
-                                        String id = users.push().getKey();
-
-                                        Usuario newUser = new Usuario();
-                                        newUser.id = id;
-                                        newUser.nombre = FirstName;
-                                        newUser.apellidos = LastName;
-                                        newUser.correo = usuario;
-                                        newUser.habilitado = 0;
-                                        newUser.admin = 0;
-
-                                        HashMap<String, Object> hashMap = new HashMap<>();
-                                        hashMap.put(id, newUser);
-
-                                        users.updateChildren(hashMap)
-                                                .addOnSuccessListener( v -> {
-                                                    Toast.makeText(getContext(), "Registro Exitoso.",
-                                                        Toast.LENGTH_SHORT).show();
-                                                }); //updateChildren envía los datos asíncronamente por lo que hay que definir los listener correspodientes
+                                        FirebaseInstanceId.getInstance().getInstanceId()
+                                                .addOnSuccessListener (instanceIdResult -> saveToken (instanceIdResult.getToken ()));
                                     }
                                 });
                     }else{
@@ -105,5 +88,29 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void saveToken(String token) {
+        DatabaseReference users = root.child("Usuarios");
+
+        String id = users.push().getKey();
+
+        Usuario newUser = new Usuario();
+        newUser.id = id;
+        newUser.nombre = FirstName;
+        newUser.apellidos = LastName;
+        newUser.correo = usuario;
+        newUser.habilitado = 0;
+        newUser.admin = 0;
+        newUser.device_id = token;
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(id, newUser);
+
+        users.updateChildren(hashMap)
+                .addOnSuccessListener( v -> {
+                    Toast.makeText(getContext(), "Registro Exitoso.",
+                            Toast.LENGTH_SHORT).show();
+                }); //updateChildren envía los datos asíncronamente por lo que hay que definir los listener correspodientes
     }
 }

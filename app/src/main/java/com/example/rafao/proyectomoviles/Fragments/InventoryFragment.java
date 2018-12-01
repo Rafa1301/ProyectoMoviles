@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.rafao.proyectomoviles.Models.Dependencia;
-import com.example.rafao.proyectomoviles.Models.Motivo;
 import com.example.rafao.proyectomoviles.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,13 +44,13 @@ public class InventoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //dropdown = view.findViewById(R.id.spinner1);
-        dropdown = view.findViewById(R.id.spinner2);
+        spinner1 = view.findViewById(R.id.spinner2);
         btn = view.findViewById(R.id.btn3);
 
         database = FirebaseDatabase.getInstance();
         root = database.getReference("/Motivos");
 
-        root.addValueEventListener(new ValueEventListener() {
+        /*root.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -68,10 +67,10 @@ public class InventoryFragment extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
+        });*/
 
         root = database.getReference("/Dependencia");
-        /*root.addValueEventListener(new ValueEventListener() {
+        root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot item: dataSnapshot.getChildren()) {
@@ -90,7 +89,7 @@ public class InventoryFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });*/
+        });
 
         btn.setOnClickListener(v -> {
             String dependencie = spinner1.getSelectedItem().toString();
