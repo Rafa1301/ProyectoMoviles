@@ -15,6 +15,7 @@ import com.example.rafao.proyectomoviles.Fragments.CRUDFragment;
 import com.example.rafao.proyectomoviles.Fragments.InventoryFragment;
 import com.example.rafao.proyectomoviles.Fragments.StatesFragment;
 import com.example.rafao.proyectomoviles.Models.Usuario;
+import com.google.android.gms.vision.L;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +38,14 @@ public class PrincipalPage extends AppCompatActivity {
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.tabs);
 
+        //toolbar.setLogo(R.drawable.tres);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setIcon(R.drawable.tres);
+        
+
         tabLayout.setupWithViewPager(viewPager);
+
 
         setupViewPager(viewPager);
 

@@ -44,8 +44,8 @@ public class InventoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        dropdown = view.findViewById(R.id.spinner1);
-        spinner1 = view.findViewById(R.id.spinner2);
+        //dropdown = view.findViewById(R.id.spinner1);
+        dropdown = view.findViewById(R.id.spinner2);
         btn = view.findViewById(R.id.btn3);
 
         database = FirebaseDatabase.getInstance();
@@ -71,7 +71,7 @@ public class InventoryFragment extends Fragment {
         });
 
         root = database.getReference("/Dependencia");
-        root.addValueEventListener(new ValueEventListener() {
+        /*root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot item: dataSnapshot.getChildren()) {
@@ -90,7 +90,7 @@ public class InventoryFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
         btn.setOnClickListener(v -> {
             String dependencie = spinner1.getSelectedItem().toString();
