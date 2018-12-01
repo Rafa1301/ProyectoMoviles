@@ -54,7 +54,7 @@ public class PrincipalPage extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.cerrar ){
+        if(item.getItemId() == R.id.cerrar){
             cerrar_sesion();
         }
         return true;
