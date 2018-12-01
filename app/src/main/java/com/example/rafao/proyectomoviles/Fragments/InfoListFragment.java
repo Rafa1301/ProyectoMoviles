@@ -1,7 +1,6 @@
 package com.example.rafao.proyectomoviles.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,14 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.rafao.proyectomoviles.Camera;
-import com.example.rafao.proyectomoviles.Models.Productos;
+import com.example.rafao.proyectomoviles.Models.Levantamiento;
 import com.example.rafao.proyectomoviles.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
@@ -29,7 +28,7 @@ public class InfoListFragment extends Fragment {
 
     private FirebaseDatabase database;
     private DatabaseReference root;
-    private ArrayList<Productos> list = new ArrayList<>();
+    private ArrayList<Levantamiento> list = new ArrayList<>();
 
     @Nullable
     @Override
@@ -42,7 +41,7 @@ public class InfoListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         database = FirebaseDatabase.getInstance();
-        root = database.getReference("/Productos");
+        root = database.getReference("/Levantamientos");
 
         Bundle data = this.getArguments();
         int codigo = data.getInt("codigo");
@@ -51,9 +50,9 @@ public class InfoListFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot item: dataSnapshot.getChildren()) {
-                    Productos product = item.getValue(Productos.class);
-                    if(product.Dependencia == codigo)
-                        list.add(product);
+                    Levantamiento levantamiento = item.getValue(Levantamiento.class);
+                    if(levantamiento.Dependencia == codigo)
+                        list.add(levantamiento);
                 }
 
                 RecyclerView recyclerView = getActivity().findViewById (R.id.recview);
@@ -77,9 +76,9 @@ public class InfoListFragment extends Fragment {
 class InfoListAdapter extends RecyclerView.Adapter<InfoListViewHolder>{
 
     private Context context;
-    private ArrayList<Productos> lista;
+    private ArrayList<Levantamiento> lista;
 
-    public InfoListAdapter(Context context, ArrayList<Productos> lista) {
+    public InfoListAdapter(Context context, ArrayList<Levantamiento> lista) {
         this.context = context;
         this.lista = lista;
     }
@@ -103,20 +102,22 @@ class InfoListAdapter extends RecyclerView.Adapter<InfoListViewHolder>{
 }
 
 class InfoListViewHolder extends RecyclerView.ViewHolder{
-
     TextView text;
+    FirebaseStorage storage;
 
     public InfoListViewHolder(@NonNull View itemView) {
         super(itemView);
         text = itemView.findViewById(R.id.textView);
+        storage = FirebaseStorage.getInstance();
     }
 
-    public void bind(Productos productos) {
-        text.setText(productos.Descripcion);
+    public void bind(Levantamiento leva) {
+        text.setText(leva.Archivo);
         text.setOnClickListener(v -> {
+            /*StorageReference fileRef = storage.getReferenceFromUrl(leva.URL);
             Intent intent = new Intent(itemView.getContext(),Camera.class);
             intent.putExtra("Codigo",productos.Codigo);
-            itemView.getContext().startActivity(intent);
+            itemView.getContext().startActivity(intent);*/
         });
     }
 }

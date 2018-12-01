@@ -91,6 +91,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private void saveToken(String token) {
+
         DatabaseReference users = root.child("Usuarios");
 
         String id = users.push().getKey();

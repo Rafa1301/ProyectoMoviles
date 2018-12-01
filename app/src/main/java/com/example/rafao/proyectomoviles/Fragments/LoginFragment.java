@@ -25,10 +25,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class LoginFragment extends Fragment implements View.OnClickListener{
+public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private Button btn;
-    private EditText users,password;
+    private EditText users, password;
     private String user, pass;
 
     private FirebaseAuth mAuth;
@@ -54,16 +54,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
 
         root = database.getReference("/Usuarios");
         sp = getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
-        if(sp.contains("email")){
-            String mail = sp.getString("email","");
-            intent = new Intent(getContext(),PrincipalPage.class);
+        if (sp.contains("email")) {
+            String mail = sp.getString("email", "");
+            intent = new Intent(getContext(), PrincipalPage.class);
             root.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot i: dataSnapshot.getChildren()){
+                    for (DataSnapshot i : dataSnapshot.getChildren()) {
                         Usuario u = i.getValue(Usuario.class);
-                        if(u.correo.equals(mail)){
-                            intent.putExtra("user",u);
+                        if (u.correo.equals(mail)) {
+                            intent.putExtra("user", u);
                             //save();
                             startActivity(intent);
                             getActivity().finish();
@@ -86,59 +86,63 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    public void singIn(){
+    public void singIn() {
         user = users.getText().toString();
         pass = password.getText().toString();
-
-        mAuth.signInWithEmailAndPassword(user, pass)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        root.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot item: dataSnapshot.getChildren()) {
-                                    Usuario userLogin = item.getValue(Usuario.class);
-                                    if(userLogin.correo.equals(user)){
-                                        if(userLogin.habilitado != 0){
-                                            //session.createLoginSession(userLogin.nombre,user);
-                                            intent = new Intent(getContext(),PrincipalPage.class);
-                                            intent.putExtra("user",userLogin);
-                                            save();
-                                            startActivity(intent);
-                                            getActivity().finish();
-                                        }else{
-                                            Toast.makeText(getContext(), "No puedes iniciar sesion.\nContacta al administrador.",
-                                                Toast.LENGTH_SHORT).show();
+        if (pass.equals("") || user.equals("")) {
+            Toast.makeText(getContext(), "Introduzca la información solicitada.",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            mAuth.signInWithEmailAndPassword(user, pass)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            root.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot item : dataSnapshot.getChildren()) {
+                                        Usuario userLogin = item.getValue(Usuario.class);
+                                        if (userLogin.correo.equals(user)) {
+                                            if (userLogin.habilitado != 0) {
+                                                //session.createLoginSession(userLogin.nombre,user);
+                                                intent = new Intent(getContext(), PrincipalPage.class);
+                                                intent.putExtra("user", userLogin);
+                                                save();
+                                                startActivity(intent);
+                                                getActivity().finish();
+                                            } else {
+                                                Toast.makeText(getContext(), "No puedes iniciar sesion.\nContacta al administrador.",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                Toast.makeText(getContext(), "No existe este usuario en la base de datos.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(getContext(), "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    Toast.makeText(getContext(), "No existe este usuario en la base de datos.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(getContext(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
+        }
     }
 
     private void save() {
-        SharedPreferences.Editor editor = sp.edit ();
-        editor.putString ("email", user);
-        editor.apply ();
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("email", user);
+        editor.apply();
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btn2){
+        if (v.getId() == R.id.btn2) {
             singIn();
         }
     }
