@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +47,7 @@ public class ProductsList extends AppCompatActivity implements TextWatcher {
 
         code = getIntent().getIntExtra("code",0);
         //btn = findViewById(R.id.voz);
-        //btn.setOnClickListener(v -> startVoiceRecognitionActivity());
+        //
 
         edit = findViewById(R.id.buscar);
         edit.addTextChangedListener(this);
@@ -75,27 +73,6 @@ public class ProductsList extends AppCompatActivity implements TextWatcher {
             }
         });
 
-    }
-
-    private void startVoiceRecognitionActivity() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        // Definimos el mensaje que aparecerá
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"¿Que desea realizar?");
-        // Lanzamos la actividad esperando resultados
-        startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK){
-            ArrayList<String> matches = data.getStringArrayListExtra
-                    (RecognizerIntent.EXTRA_RESULTS);
-            String [] palabras = matches.get(0).split(" ");
-            Log.i("CRUD",palabras[0]);
-        }
     }
 
     @Override

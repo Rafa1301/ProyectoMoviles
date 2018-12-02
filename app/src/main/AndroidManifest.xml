@@ -10,9 +10,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/uv"
+        android:icon="@drawable/uv"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/uv"
+        android:roundIcon="@drawable/uv"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -36,6 +36,10 @@
 
         <activity
             android:name=".ProductsList"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".InfoLevantamiento"
             android:screenOrientation="portrait" />
 
         <activity

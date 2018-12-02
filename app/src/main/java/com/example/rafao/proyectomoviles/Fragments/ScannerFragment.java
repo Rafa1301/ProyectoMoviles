@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.rafao.proyectomoviles.Models.Productos;
 import com.example.rafao.proyectomoviles.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -26,6 +27,11 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 
@@ -39,6 +45,9 @@ public class ScannerFragment extends Fragment {
 
     private BarcodeDetector barcodeDetector;
     private TextRecognizer textRecognizer;
+
+    private FirebaseDatabase fdata = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = fdata.getReference("/Productos");
 
     final int RequestCameraPermissionID = 1001;
 
@@ -75,14 +84,34 @@ public class ScannerFragment extends Fragment {
                     textview.post(() -> {
                         Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
                         vibrator.vibrate(100);
-                        if(code == "") {
-                            textview.setText(qrCodes.valueAt(0).displayValue);
-                        }else{
-                            String codigo = qrCodes.valueAt(0).displayValue;
-                            if(code.equals(codigo)){
-                                textview.setText("El texto es el mismo");
+                        ref.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                String codigo = qrCodes.valueAt(0).displayValue;
+                                for (DataSnapshot dt :dataSnapshot.getChildren()) {
+                                    Productos pr = dt.getValue(Productos.class);
+                                    if(!code.equals("")){
+                                        if(code.equals(pr.Codigo)){
+                                            pr.Inventario = 1;
+                                            DatabaseReference child = ref.child(pr.id);
+                                            child.setValue(pr);
+                                        }
+                                    }else {
+                                        if (pr.Codigo.equals(codigo)) {
+                                            pr.Inventario = 1;
+                                            DatabaseReference child = ref.child(pr.id);
+                                            child.setValue(pr);
+                                        }
+                                    }
+                                }
                             }
-                        }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     });
                 }
             }
