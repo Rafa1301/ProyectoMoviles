@@ -3,7 +3,8 @@
     android:layout_height="50dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:background="#28AD56">
 
     <!-- <TextView
         android:id="@+id/textView1"
