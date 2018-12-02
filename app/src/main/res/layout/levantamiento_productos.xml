@@ -22,6 +22,7 @@
         android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/motivo"
+        android:layout_marginBottom="10dp"
         />
 
     <Button
@@ -40,6 +41,7 @@
     <Button
         android:id="@+id/fin"
         android:layout_toRightOf="@+id/micro"
+        android:layout_below="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Finalizar"/>
@@ -48,6 +50,7 @@
         android:layout_below="@id/fin"
         android:id="@+id/rootContainer02"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_height="match_parent"></FrameLayout>
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.rafao.proyectomoviles.Fragments.InfoProductFragment;
 import com.example.rafao.proyectomoviles.Models.Motivo;
@@ -91,10 +92,37 @@ public class InfoLevantamiento extends AppCompatActivity implements View.OnClick
                 i = new Intent(v.getContext(),Camera.class);
                 v.getContext().startActivity(i);
                 break;
-            case R.id.micro:
-
+            case R.id.fin:
+                terminarLevantamiento();
                 break;
         }
+    }
+
+    private void terminarLevantamiento() {
+        FirebaseDatabase root = FirebaseDatabase.getInstance();
+        DatabaseReference ref = root.getReference("/Productos");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot it: dataSnapshot.getChildren()){
+                    Productos pr = it.getValue(Productos.class);
+                    if(pr.Inventario == 1){
+                        pr.Inventario = 0;
+                        DatabaseReference u = ref.child(pr.id);
+                        u.setValue(pr);
+                    }
+                }
+                Toast.makeText(getApplicationContext(), "Authentication failed.",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     private void startVoiceRecognitionActivity() {

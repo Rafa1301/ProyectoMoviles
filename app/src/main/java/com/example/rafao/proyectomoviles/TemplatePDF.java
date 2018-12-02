@@ -17,8 +17,8 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TemplatePDF {
     private Context context;
@@ -39,7 +39,7 @@ public class TemplatePDF {
         createFile();
         try{
             document = new Document(PageSize.A4); //creado el documento
-            pdfWriter = new PdfWriter.getInstance(document,new FileOutputStream(pdfFile));
+            //pdfWriter = new PdfWriter.getInstance(document,new FileOutputStream(pdfFile));
             document.open();
         }catch (Exception e){
             Log.e("openDocument",e.toString());
@@ -60,7 +60,8 @@ public class TemplatePDF {
     }
 
     public void addMeta(String title, String subjet, String autor){//esto agrega los metadatos.
-        document.addTitle(title);
+        Date fecha = new Date();
+        document.addTitle(fecha.toString());
         document.addSubject(subjet);
         document.addAuthor(autor);
     }
