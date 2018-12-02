@@ -39,7 +39,6 @@
         android:text="Microfono"/>
     <Button
         android:id="@+id/fin"
-        android:layout_below="@+id/cam"
         android:layout_toRightOf="@+id/micro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
