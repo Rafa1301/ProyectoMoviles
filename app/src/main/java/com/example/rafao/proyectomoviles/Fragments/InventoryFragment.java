@@ -1,5 +1,6 @@
 package com.example.rafao.proyectomoviles.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.example.rafao.proyectomoviles.InfoLevantamiento;
 import com.example.rafao.proyectomoviles.Models.Dependencia;
 import com.example.rafao.proyectomoviles.R;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +33,7 @@ public class InventoryFragment extends Fragment {
     private ArrayList<String> DependencieList = new ArrayList<>();
     private FirebaseDatabase database;
     private DatabaseReference root;
-    private Button btn;
+    private Button btn,btn1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +48,7 @@ public class InventoryFragment extends Fragment {
         //dropdown = view.findViewById(R.id.spinner1);
         spinner1 = view.findViewById(R.id.spinner2);
         btn = view.findViewById(R.id.btn3);
+        btn1 = view.findViewById(R.id.btn4);
 
         database = FirebaseDatabase.getInstance();
         root = database.getReference("/Motivos");
@@ -105,6 +108,14 @@ public class InventoryFragment extends Fragment {
                     .replace(R.id.rootContainer01,fragment2)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit ();
+        });
+
+        btn1.setOnClickListener(v -> {
+            String dependencie = spinner1.getSelectedItem().toString();
+            int codigo = getCode(dependencie);
+            Intent i = new Intent(getContext(),InfoLevantamiento.class);
+            i.putExtra("code",codigo);
+            startActivity(i);
         });
 
     }

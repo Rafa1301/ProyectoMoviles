@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="#28AD56">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/motivo"
+        android:text="Motivo"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="#000"
+
+        />
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/motivo"
+        />
+
+    <Button
+        android:id="@+id/cam"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/spinner1"
+        android:layout_height="wrap_content"
+        android:text="Abrir Camara"/>
+    <Button
+        android:id="@+id/micro"
+        android:layout_toRightOf="@id/cam"
+        android:layout_below="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Microfono"/>
+    <Button
+        android:id="@+id/fin"
+        android:layout_toRightOf="@+id/micro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar"/>
+
+    <FrameLayout
+        android:layout_below="@id/fin"
+        android:id="@+id/rootContainer02"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+</RelativeLayout>
