@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rafao.proyectomoviles.Interface.IUserStates;
 import com.example.rafao.proyectomoviles.Models.Usuario;
@@ -132,7 +133,10 @@ class UserStateViewHolder extends RecyclerView.ViewHolder{
                 Setuser.habilitado = 0;
             }
             DatabaseReference root = FirebaseDatabase.getInstance().getReference("/Usuarios").child(Setuser.id);
-            root.setValue(Setuser);
+            root.setValue(Setuser).addOnSuccessListener(s -> {
+                Toast.makeText(itemView.getContext(), "Actualizado Correctamente",
+                        Toast.LENGTH_SHORT).show();
+            });
         });
     }
 }

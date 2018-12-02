@@ -6,7 +6,6 @@
         android:id="@+id/cerrar"
         android:orderInCategory="100"
         android:title="Cerrar Sesión"
-        app:showAsAction="always"
-        android:icon="@drawable/tres"
+        app:showAsAction="ifRoom"
         />
 </menu>

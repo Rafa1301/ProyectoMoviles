@@ -19,6 +19,7 @@ import com.example.rafao.proyectomoviles.Fragments.CRUDFragment;
 import com.example.rafao.proyectomoviles.Fragments.InventoryFragment;
 import com.example.rafao.proyectomoviles.Fragments.StatesFragment;
 import com.example.rafao.proyectomoviles.Models.Usuario;
+import com.example.rafao.proyectomoviles.Utils.SessionManagement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,13 @@ public class PrincipalPage extends AppCompatActivity {
     private ViewPager viewPager;
     private Usuario user;
     private SharedPreferences sp;
+    private SessionManagement s;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.principalpage);
-
+        s = new SessionManagement(getApplicationContext());
         Intent i = getIntent();
         user = (Usuario)i.getSerializableExtra("user");
 
@@ -55,19 +57,12 @@ public class PrincipalPage extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.cerrar){
-            cerrar_sesion();
+            s.logoutUser();
         }
         return true;
     }
 
-    private void cerrar_sesion() {
-        SharedPreferences.Editor editor = sp.edit();
-        editor.remove("email");
-        editor.commit();
-        Intent i = new Intent(this,MainActivity.class);
-        startActivity(i);
-        finish();
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -4,58 +4,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.support.annotation.NonNull;
 
 import com.example.rafao.proyectomoviles.MainActivity;
+import com.example.rafao.proyectomoviles.Models.Usuario;
 import com.example.rafao.proyectomoviles.PrincipalPage;
-
-import java.util.HashMap;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SessionManagement {
-    // Shared Preferences
     SharedPreferences pref;
-
-    // Editor for Shared preferences
     Editor editor;
-
-    // Context
     Context _context;
-
-    // Shared pref mode
-    int PRIVATE_MODE = 0;
-
-    // Sharedpref file name
-    private static final String PREF_NAME = "AndroidHivePref";
-
-    // All Shared Preferences Keys
-    private static final String IS_LOGIN = "IsLoggedIn";
-
-    // User name (make variable public to access from outside)
-    public static final String KEY_NAME = "name";
-
-    // Email address (make variable public to access from outside)
-    public static final String KEY_EMAIL = "email";
 
     // Constructor
     public SessionManagement(Context context){
         this._context = context;
-        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        pref = _context.getSharedPreferences("myPref", Context.MODE_PRIVATE);
         editor = pref.edit();
     }
 
     /**
      * Create login session
      * */
-    public void createLoginSession(String name, String email){
-        // Storing login value as TRUE
-        editor.putBoolean(IS_LOGIN, true);
-
-        // Storing name in pref
-        editor.putString(KEY_NAME, name);
-
-        // Storing email in pref
-        editor.putString(KEY_EMAIL, email);
-
-        // commit changes
+    public void createLoginSession(String email){
+        editor.putString("email", email);
         editor.commit();
     }
 
@@ -66,35 +42,30 @@ public class SessionManagement {
      * */
     public void checkLogin(){
         // Check login status
-        if(this.isLoggedIn()){
-            // user is not logged in redirect him to Login Activity
+        if(pref.contains("email")){
             Intent i = new Intent(_context, PrincipalPage.class);
-            // Closing all the Activities
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference users = root.child("Usuarios");
+            users.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot u :dataSnapshot.getChildren()) {
+                        Usuario login = u.getValue(Usuario.class);
+                        if(login.correo.equals(pref.getString("email",""))){
+                            i.putExtra("user",login);
+                        }
+                    }
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    _context.startActivity(i);
+                }
 
-            // Add new Flag to start new Activity
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            // Staring Login Activity
-            _context.startActivity(i);
+                }
+            });
         }
-    }
 
-
-
-    /**
-     * Get stored session data
-     * */
-    public HashMap<String, String> getUserDetails(){
-        HashMap<String, String> user = new HashMap<String, String>();
-        // user name
-        user.put(KEY_NAME, pref.getString(KEY_NAME, null));
-
-        // user email id
-        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
-
-        // return user
-        return user;
     }
 
     /**
@@ -104,24 +75,9 @@ public class SessionManagement {
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();
-
-        // After logout redirect user to Loing Activity
         Intent i = new Intent(_context, MainActivity.class);
-        // Closing all the Activities
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        // Add new Flag to start new Activity
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        // Staring Login Activity
         _context.startActivity(i);
     }
 
-    /**
-     * Quick check for login
-     * **/
-    // Get Login State
-    public boolean isLoggedIn(){
-        return pref.getBoolean(IS_LOGIN, false);
-    }
 }

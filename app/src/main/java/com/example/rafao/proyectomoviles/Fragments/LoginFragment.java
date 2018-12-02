@@ -1,7 +1,5 @@
 package com.example.rafao.proyectomoviles.Fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,10 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.rafao.proyectomoviles.MainActivity;
 import com.example.rafao.proyectomoviles.Models.Usuario;
 import com.example.rafao.proyectomoviles.PrincipalPage;
 import com.example.rafao.proyectomoviles.R;
+import com.example.rafao.proyectomoviles.Utils.SessionManagement;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,12 +32,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private String user, pass;
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
-    private DatabaseReference root;
+    private DatabaseReference database;
+    private DatabaseReference reference;
     private SharedPreferences sp;
     private Intent intent;
 
-    //SessionManagement session;
+    private SessionManagement session;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,30 +50,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance().getReference();
 
-        root = database.getReference("/Usuarios");
-        sp = getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        reference = database.child("Usuarios");
 
+        session = new SessionManagement(getContext());
+        session.checkLogin();
         users = view.findViewById(R.id.editText);
         password = view.findViewById(R.id.editText2);
 
         btn = view.findViewById(R.id.btn2);
         btn.setOnClickListener(this);
-
-    }
-
-    public MainActivity a;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-
-
-        if (context instanceof Activity){
-            a=(MainActivity) context;
-        }
 
     }
 
@@ -90,24 +75,24 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            root.addValueEventListener(new ValueEventListener() {
+                            ValueEventListener event  = new ValueEventListener() {
                                 @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot item : dataSnapshot.getChildren()) {
-                                        Usuario userLogin = item.getValue(Usuario.class);
-                                        if (userLogin.correo.equals(user)) {
+                                public void onDataChange(@NonNull DataSnapshot datos) {
+                                    for (DataSnapshot usuario : datos.getChildren()) {
+                                        Usuario userLogin = usuario.getValue(Usuario.class);
+                                          if (userLogin.correo.equals(user)) {
                                             if (userLogin.habilitado != 0) {
                                                 //session.createLoginSession(userLogin.nombre,user);
-                                                intent = new Intent(a, PrincipalPage.class);
+                                                intent = new Intent(getContext(), PrincipalPage.class);
                                                 intent.putExtra("user", userLogin);
-                                                save();
+                                                session.createLoginSession(user);
                                                 startActivity(intent);
                                                 //getActivity().finish();
                                             } else {
                                                 Toast.makeText(getContext(), "No puedes iniciar sesion.\nContacta al administrador.",
                                                         Toast.LENGTH_SHORT).show();
                                             }
-                                        }
+                                          }
                                     }
                                 }
 
@@ -116,7 +101,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                     Toast.makeText(getContext(), "No existe este usuario en la base de datos.",
                                             Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                            };
+                            reference.addValueEventListener(event);
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(getContext(), "Authentication failed.",
@@ -125,12 +111,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     });
 
         }
-    }
-
-    private void save() {
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("email", user);
-        editor.apply();
     }
 
     @Override

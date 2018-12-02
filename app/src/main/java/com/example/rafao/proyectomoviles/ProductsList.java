@@ -10,11 +10,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -27,10 +30,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ProductsList extends AppCompatActivity {
+public class ProductsList extends AppCompatActivity implements TextWatcher {
 
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1;
     private Button btn;
+    private EditText edit;
     private RecyclerView rc;
     private int code;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -44,12 +48,14 @@ public class ProductsList extends AppCompatActivity {
         setContentView(R.layout.ver_product);
 
         code = getIntent().getIntExtra("code",0);
-        btn = findViewById(R.id.voz);
-        btn.setOnClickListener(v -> startVoiceRecognitionActivity());
+        //btn = findViewById(R.id.voz);
+        //btn.setOnClickListener(v -> startVoiceRecognitionActivity());
+
+        edit = findViewById(R.id.buscar);
+        edit.addTextChangedListener(this);
 
         rc = findViewById(R.id.recyclerP);
         rc.setLayoutManager (new LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false));
-
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -92,6 +98,57 @@ public class ProductsList extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        String search = s.toString();
+        if(!search.equals("")){
+            root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    list = new ArrayList<>();
+                    for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                        Productos product = dt.getValue(Productos.class);
+                        if(product.Dependencia == code && product.Descripcion.contains(search)){
+                            list.add(product);
+                        }
+                    }
+                    rc.setAdapter (new ProductListAdapter(getApplicationContext(), list));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }else{
+            root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    list = new ArrayList<>();
+                    for (DataSnapshot dt : dataSnapshot.getChildren()) {
+                        Productos product = dt.getValue(Productos.class);
+                        if(product.Dependencia == code){
+                            list.add(product);
+                        }
+                    }
+                    rc.setAdapter (new ProductListAdapter(getApplicationContext(), list));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
 }
 
 class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHolder>{
@@ -122,7 +179,7 @@ class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHolder>{
     }
 }
 
-class ProductListViewHolder extends RecyclerView.ViewHolder{
+class ProductListViewHolder extends RecyclerView.ViewHolder {
 
     private Switch sw;
     private TextView tv;
@@ -138,24 +195,24 @@ class ProductListViewHolder extends RecyclerView.ViewHolder{
         String txt = productos.Descripcion;
         tv.setText(txt);
         tv.setOnClickListener(v -> {
-            Intent i = new Intent(v.getContext(),ProductsActivity.class);
+            Intent i = new Intent(v.getContext(), ProductsActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.putExtra("Producto",productos);
+            i.putExtra("Producto", productos);
             v.getContext().startActivity(i);
         });
         tv.setTextColor(R.color.black);
-        if(productos.Estado == 1){
+        if (productos.Estado == 1) {
             sw.setChecked(true);
-        }else{
+        } else {
             sw.setChecked(false);
         }
         sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(sw.isChecked() == true){
+            if (sw.isChecked() == true) {
                 productos.Estado = 1;
-            }else{
+            } else {
                 productos.Estado = 0;
             }
-            DatabaseReference root = FirebaseDatabase.getInstance().getReference("/Usuarios").child(productos.id);
+            DatabaseReference root = FirebaseDatabase.getInstance().getReference("/Productos").child(productos.id);
             root.setValue(productos);
         });
     }
