@@ -14,7 +14,7 @@
         android:text="Codigo:"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:textColor="#000"/>
+        android:textColor="#FFF"/>
 
     <EditText
         android:id="@+id/code"
@@ -24,6 +24,8 @@
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:hint="Codigo"
+        android:textColor="#FFF"
+        android:textColorHint="#FFF"
         />
 
 
@@ -34,7 +36,7 @@
         android:layout_alignStart="@+id/tex1"
         android:layout_below="@+id/code"
         android:text="Descripcion:"
-        android:textColor="#000"
+        android:textColor="#FFF"
         android:textSize="20dp"
         android:layout_marginTop="10dp"
         android:textStyle="bold" />
@@ -63,7 +65,8 @@
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:gravity="top"
-        android:hint="Your Message"
+        android:hint="Descripcion..."
+        android:textColorHint="#FFF"
         android:id="@+id/desc"
         android:fitsSystemWindows="true"
         android:breakStrategy="balanced"
