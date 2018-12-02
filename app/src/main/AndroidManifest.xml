@@ -7,6 +7,10 @@
     <uses-feature android:name="android.hardware.Camera.autofocus" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
 
     <application
         android:allowBackup="true"
@@ -15,9 +19,9 @@
         android:roundIcon="@mipmap/uv"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait">
@@ -33,11 +37,9 @@
         <activity
             android:name=".Camera"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ProductsList"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ProductsActivity"
             android:screenOrientation="portrait" />
@@ -54,6 +56,7 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="ocr" />
 
+        <activity android:name=".ViewPDFActivity"></activity>
     </application>
 
 </manifest>
